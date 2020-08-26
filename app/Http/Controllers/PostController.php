@@ -177,12 +177,13 @@ class PostController extends Controller {
                     //Actualizamos el registro en concreto
                     $post->update($params_array);
 
-                    $data = [
+                    $data = array(
                         'code' => 200,
                         'status' => 'success',
                         'message' => 'Se ha actualizado el post',
-                        'Post' => $post
-                    ];
+                        'post' => $post,
+                        'changes' => $params_array
+                    );
                 } else {
                     $data = [
                         'code' => 400,
@@ -286,21 +287,21 @@ class PostController extends Controller {
 
     //Conseguir un post por categoria
     public function getPostByCategory($id) {
-        $post = Post::where('category_id', $id)->get();
+        $posts = Post::where('category_id', $id)->get();
 
         return response()->json([
                     'status' => 'success',
-                    'user' => $post
+                    'posts' => $posts
                         ], 200);
     }
 
     //Conseguir un post por usuario
     public function getPostByUser($id) {
-        $post = Post::where('user_id', $id)->get();
+        $posts = Post::where('user_id', $id)->get();
 
         return response()->json([
                     'status' => 'success',
-                    'user' => $post
+                    'posts' => $posts
                         ], 200);
     }
 
